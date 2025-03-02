@@ -1,0 +1,9 @@
+[user]
+	name = Thomas Møller
+	email = 48474561+tmoller96@users.noreply.github.com
+[pull]
+	rebase = false
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RF
+[interactive]
+	diffFilter = diff-so-fancy --patch
