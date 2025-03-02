@@ -45,3 +45,12 @@ ln -s ~/.dotfiles/.zshrc ~/.zshrc
 ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
 ln -s ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
 ```
+
+## Todo for Mac
+
+- Add iterm2 configuration
+
+## Todo for Windows
+
+- Add winget bundle file like homebrew to install the same dependencies
+- Add terminal configuration
