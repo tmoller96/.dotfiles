@@ -77,7 +77,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo web-search copyfile zsh-bat nvm npm flutter fzf aliases)
+plugins=(aliases git sudo web-search copyfile zsh-bat nvm npm flutter fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -106,12 +106,15 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="code ~/.zshrc"
 alias zshreload="source ~/.zshrc"
-
+alias als="acs"
 
 gbsel() {
     local branch
     branch=$(git branch --all | grep -v HEAD | sed 's/^..//' | fzf) && git checkout "$(echo "$branch" | sed 's#remotes/origin/##')"
 }
+
+export PATH="$(brew --prefix)/bin:$PATH"
+export PATH="$(brew --prefix)/opt/python/libexec/bin:$PATH"
 
 # Check if Flutter directory exists before adding to PATH
 if [ -d "$HOME/development/flutter/bin" ]; then

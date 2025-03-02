@@ -7,6 +7,7 @@ brew "fzf" # Command-line fuzzy finder written in Go
 brew "git" # Distributed revision control system
 brew "nvm" # Manage multiple Node.js versions
 brew "powerlevel10k" # Theme for zsh
+brew "python" # Interpreted, interactive, object-oriented programming language
 brew "wget" # Internet file retriever
 brew "zsh-autosuggestions" # Fish-like autosuggestions for zsh
 brew "zsh-syntax-highlighting" # Fish shell like syntax highlighting for zsh
