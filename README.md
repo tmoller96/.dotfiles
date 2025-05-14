@@ -22,7 +22,7 @@ This will:
 - Install Oh My Zsh (if not already installed)
 - Install the zsh-bat plugin
 - Symlink `.zshrc`, `.gitconfig`, and `.p10k.zsh` to your home directory
-- Symlink your iTerm2 profile (`Default.json`) to the iTerm2 DynamicProfiles directory for live sync
+- Symlink your iTerm2 profile (`mac/iterm2-profile.json`) to the iTerm2 DynamicProfiles directory for live sync
 
 After running the script:
 
@@ -53,7 +53,7 @@ If you prefer to install manually, follow these steps:
 5. Symlink iTerm2 profile:
    ```zsh
    mkdir -p "$HOME/Library/Application Support/iTerm2/DynamicProfiles"
-   ln -sf ~/.dotfiles/Default.json "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Default.json"
+   ln -sf ~/.dotfiles/mac/iterm2-profile.json "$HOME/Library/Application Support/iTerm2/DynamicProfiles/iterm2-profile.json"
    ```
 
 ## Todo for Mac

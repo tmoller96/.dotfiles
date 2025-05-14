@@ -44,17 +44,17 @@ for file in .zshrc .gitconfig .p10k.zsh; do
 done
 
 # 5. Symlink iTerm2 profile for live sync
-ITERM_PROFILE_SRC="$DOTFILES_DIR/Default.json"
-ITERM_PROFILE_DEST="$HOME/Library/Application Support/iTerm2/DynamicProfiles/Default.json"
+ITERM_PROFILE_SRC="$DOTFILES_DIR/mac/iterm2-profile.json"
+ITERM_PROFILE_DEST="$HOME/Library/Application Support/iTerm2/DynamicProfiles/iterm2-profile.json"
 if [ -e "$ITERM_PROFILE_SRC" ]; then
   mkdir -p "$HOME/Library/Application Support/iTerm2/DynamicProfiles"
   if [ -e "$ITERM_PROFILE_DEST" ] || [ -L "$ITERM_PROFILE_DEST" ]; then
     rm -f "$ITERM_PROFILE_DEST"
   fi
   ln -s "$ITERM_PROFILE_SRC" "$ITERM_PROFILE_DEST"
-  echo "[+] Symlinked iTerm2 profile. Changes will sync with your repo. If iTerm2 is open, go to Preferences > Profiles to select 'Default'. You may need to restart iTerm2."
+  echo "[+] Symlinked iTerm2 profile. Changes will sync with your repo. If iTerm2 is open, go to Preferences > Profiles to select your profile. You may need to restart iTerm2."
 else
-  echo "[!] iTerm2 profile Default.json not found in dotfiles."
+  echo "[!] iTerm2 profile iterm2-profile.json not found in dotfiles."
 fi
 
 echo "[+] Setup complete! Please restart your terminal."
