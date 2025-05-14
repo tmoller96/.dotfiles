@@ -18,13 +18,14 @@ if OS.mac?
     brew "mas" # Mac App Store command-line interface
     
     # Mac-specific casks
+    cask "arc" # Web browser
     cask "chatgpt" # OpenAI's official ChatGPT desktop app
     cask "displaylink" # Drivers for DisplayLink docks, adapters and monitors
     cask "font-meslo-lg-nerd-font" # Custom font for terminal
     cask "google-chrome" # Web browser
     cask "logi-options+" # Software for Logitech devices
     cask "messenger" # Native desktop app for Messenger (formerly Facebook Messenger)
-    cask "notion" # App to write, plan, collaborate, and get organised
+    cask "notion" # App to write, plan, collaborate, and get organized
     cask "slack" # Team communication and collaboration software
     cask "spotify" # Music streaming service
     cask "visual-studio-code" # Open-source code editor
