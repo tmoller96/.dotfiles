@@ -46,7 +46,7 @@
         "Alpha Component": 1,
         "Green Component": 0.23660069704055786
       },
-      "Rows": 25,
+      "Rows": 35,
       "Default Bookmark": "No",
       "Ansi 2 Color": {
         "Red Component": 0,
@@ -105,7 +105,7 @@
         "Green Component": 0.84313726425170898
       },
       "Only The Default BG Color Uses Transparency": true,
-      "Columns": 80,
+      "Columns": 135,
       "Idle Code": 0,
       "Ansi 13 Color": {
         "Red Component": 0.8821563720703125,
