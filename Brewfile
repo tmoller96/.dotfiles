@@ -22,6 +22,7 @@ if OS.mac?
     cask "chatgpt" # OpenAI's official ChatGPT desktop app
     cask "displaylink" # Drivers for DisplayLink docks, adapters and monitors
     cask "font-meslo-lg-nerd-font" # Custom font for terminal
+    cask "font-cascadia-code" # Monospaced font from Microsoft, great for coding
     cask "google-chrome" # Web browser
     cask "logi-options+" # Software for Logitech devices
     cask "messenger" # Native desktop app for Messenger (formerly Facebook Messenger)

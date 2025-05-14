@@ -54,22 +54,8 @@ if [ -e "$ITERM_PROFILE_SRC" ]; then
   ln -s "$ITERM_PROFILE_SRC" "$ITERM_PROFILE_DEST"
   echo "[+] Symlinked iTerm2 profile. Changes will sync with your repo."
 
-  # Set the iTerm2 profile as default using AppleScript
-  PROFILE_DESCRIPTION="Default" # Change if your profile's Description is different
-  if command -v osascript &>/dev/null; then
-    osascript <<EOF
-try
-  tell application "iTerm2"
-    set defaultProfile to "$PROFILE_DESCRIPTION"
-    set current settings of every terminal to settings set defaultProfile
-    set the default settings to settings set defaultProfile
-  end tell
-end try
-EOF
-    echo "[+] Set iTerm2 profile '$PROFILE_DESCRIPTION' as default."
-  else
-    echo "[!] osascript not found. Please set the default profile manually in iTerm2."
-  fi
+  # Set the iTerm2 profile as default using AppleScript (not supported reliably)
+  echo "[!] Automatic setting of default iTerm2 profile is not supported. Please set the default profile manually in iTerm2 > Preferences > Profiles."
 else
   echo "[!] iTerm2 profile iterm2-profile.json not found in dotfiles."
 fi
