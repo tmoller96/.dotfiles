@@ -6,49 +6,59 @@ This repository contains my personal dotfiles configuration.
 
 These dotfiles are used to maintain consistent development environments across different machines. They include configuration files for various tools and applications.
 
-## Installation
+## Installation (macOS)
 
-Clone the repository
+Run the setup script to automatically install Homebrew, all Brewfile dependencies, Oh My Zsh, zsh-bat, symlink your dotfiles, and set up your iTerm2 profile:
 
-```bash
-git clone https://github.com/username/.dotfiles.git ~/.dotfiles
-```
-
-Navigate into the dotfiles
-
-```bash
+```zsh
 cd ~/.dotfiles
+zsh setup-mac.sh
 ```
 
-Install all the brew applications
+This will:
 
-```bash
-brew bundle
-```
+- Install Homebrew (if not already installed)
+- Install all apps and packages from the Brewfile
+- Install Oh My Zsh (if not already installed)
+- Install the zsh-bat plugin
+- Symlink `.zshrc`, `.gitconfig`, and `.p10k.zsh` to your home directory
+- Symlink your iTerm2 profile (`Default.json`) to the iTerm2 DynamicProfiles directory for live sync
 
-Install oh-my-zsh
+After running the script:
 
-```bash
-sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-```
+- Open iTerm2. If the profile is not automatically applied, go to Preferences > Profiles and select `Default`. You may need to restart iTerm2.
 
-Install `zsh-bat`plugin
+## Manual Installation (Advanced)
 
-```bash
-git clone https://github.com/fdellwing/zsh-bat.git $ZSH_CUSTOM/plugins/zsh-bat
-```
+If you prefer to install manually, follow these steps:
 
-Extract dotfiles to the home directory
-
-```bash
-ln -s ~/.dotfiles/.zshrc ~/.zshrc
-ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
-ln -s ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
-```
+1. Install Homebrew and all Brewfile dependencies:
+   ```zsh
+   brew bundle --file=~/dotfiles/Brewfile
+   ```
+2. Install Oh My Zsh:
+   ```zsh
+   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+   ```
+3. Install zsh-bat plugin:
+   ```zsh
+   git clone https://github.com/fdellwing/zsh-bat.git $ZSH_CUSTOM/plugins/zsh-bat
+   ```
+4. Symlink dotfiles:
+   ```zsh
+   ln -s ~/.dotfiles/.zshrc ~/.zshrc
+   ln -s ~/.dotfiles/.gitconfig ~/.gitconfig
+   ln -s ~/.dotfiles/.p10k.zsh ~/.p10k.zsh
+   ```
+5. Symlink iTerm2 profile:
+   ```zsh
+   mkdir -p "$HOME/Library/Application Support/iTerm2/DynamicProfiles"
+   ln -sf ~/.dotfiles/Default.json "$HOME/Library/Application Support/iTerm2/DynamicProfiles/Default.json"
+   ```
 
 ## Todo for Mac
 
-- Add iterm2 configuration
+- [x] Add iterm2 configuration (profile symlinked via setup script)
 
 ## Todo for Windows
 
