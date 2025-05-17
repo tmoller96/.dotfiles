@@ -56,7 +56,6 @@ ITERM_PREFS_DIR="$DOTFILES_DIR/mac"
 echo "[+] Configuring iTerm2 to load preferences from $ITERM_PREFS_DIR ..."
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$ITERM_PREFS_DIR"
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-defaults write com.googlecode.iterm2 SavePrefsOnExit -bool true
 echo "[+] iTerm2 is now set to load preferences from $ITERM_PREFS_DIR. Please restart iTerm2 for changes to take effect."
 
 echo "[+] Setup complete! Please restart your terminal."
