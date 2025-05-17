@@ -59,21 +59,12 @@ for file in .zshrc .gitconfig .p10k.zsh; do
   fi
 done
 
-# 5. Symlink iTerm2 profile for live sync
-ITERM_PROFILE_SRC="$DOTFILES_DIR/mac/iterm2-profile.json"
-ITERM_PROFILE_DEST="$HOME/Library/Application Support/iTerm2/DynamicProfiles/iterm2-profile.json"
-if [ -e "$ITERM_PROFILE_SRC" ]; then
-  mkdir -p "$HOME/Library/Application Support/iTerm2/DynamicProfiles"
-  if [ -e "$ITERM_PROFILE_DEST" ] || [ -L "$ITERM_PROFILE_DEST" ]; then
-    rm -f "$ITERM_PROFILE_DEST"
-  fi
-  ln -s "$ITERM_PROFILE_SRC" "$ITERM_PROFILE_DEST"
-  echo "[+] Symlinked iTerm2 profile. Changes will sync with your repo."
-
-  # Set the iTerm2 profile as default using AppleScript (not supported reliably)
-  echo "[!] Automatic setting of default iTerm2 profile is not supported. Please set the default profile manually in iTerm2 > Preferences > Profiles."
-else
-  echo "[!] iTerm2 profile iterm2-profile.json not found in dotfiles."
-fi
+# 5. Configure iTerm2 to load preferences from dotfiles
+ITERM_PREFS_DIR="$DOTFILES_DIR/mac"
+echo "[+] Configuring iTerm2 to load preferences from $ITERM_PREFS_DIR ..."
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$ITERM_PREFS_DIR"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2 SavePrefsOnExit -bool true
+echo "[+] iTerm2 is now set to load preferences from $ITERM_PREFS_DIR. Please restart iTerm2 for changes to take effect."
 
 echo "[+] Setup complete! Please restart your terminal."
