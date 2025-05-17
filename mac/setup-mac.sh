@@ -21,6 +21,11 @@ else
   echo "[+] Homebrew already installed."
 fi
 
+# Ensure brew is available in current shell
+if [ -d "/opt/homebrew/bin" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 echo "[+] Installing Brewfile dependencies..."
 brew bundle --file="$BREWFILE"
 
