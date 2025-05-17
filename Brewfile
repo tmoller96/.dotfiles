@@ -3,6 +3,7 @@ brew "bat" # Clone of cat(1) with syntax highlighting and Git integration
 brew "diff-so-fancy" # Good-lookin' diffs with diff-highlight and more
 brew "fzf" # Command-line fuzzy finder written in Go
 brew "git" # Distributed revision control system
+brew "lazygit" # Git GUI with a terminal interface
 brew "nvm" # Manage multiple Node.js versions
 brew "powerlevel10k" # Theme for zsh
 brew "python" # Interpreted, interactive, object-oriented programming language
