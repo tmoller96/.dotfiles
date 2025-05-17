@@ -1,5 +1,3 @@
-tap "homebrew/bundle"
-
 # Cross-platform installations (will work on both Mac and Linux)
 brew "bat" # Clone of cat(1) with syntax highlighting and Git integration
 brew "diff-so-fancy" # Good-lookin' diffs with diff-highlight and more
