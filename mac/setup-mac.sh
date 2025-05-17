@@ -17,8 +17,11 @@ BREWFILE="$DOTFILES_DIR/Brewfile"
 if ! command -v brew &>/dev/null; then
   echo "[+] Homebrew not found. Installing..."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 else
   echo "[+] Homebrew already installed."
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Ensure brew is available in current shell
