@@ -2,14 +2,6 @@
 # setup-mac.sh: Bootstrap your macOS development environment using your dotfiles
 set -e
 
-# Ask for sudo password upfront
-echo "[+] Requesting sudo access..."
-sudo -v
-
-# Keep-alive: update existing `sudo` timestamp until script has finished
-# (runs in background, stops when script ends)
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
 DOTFILES_DIR="$HOME/.dotfiles"
 BREWFILE="$DOTFILES_DIR/Brewfile"
 
@@ -68,3 +60,12 @@ defaults write com.googlecode.iterm2 SavePrefsOnExit -bool true
 echo "[+] iTerm2 is now set to load preferences from $ITERM_PREFS_DIR. Please restart iTerm2 for changes to take effect."
 
 echo "[+] Setup complete! Please restart your terminal."
+
+# 6. Open iTerm2 and close the current terminal
+if command -v open &>/dev/null; then
+  echo "[+] Opening iTerm2..."
+  open -a iTerm
+  # Close the current terminal window (works for Terminal.app and iTerm2 launched from Terminal)
+  osascript -e 'tell application "Terminal" to close (every window whose visible is true)' 2>/dev/null || true
+  osascript -e 'tell application "iTerm" to tell current window to close if exists' 2>/dev/null || true
+fi
