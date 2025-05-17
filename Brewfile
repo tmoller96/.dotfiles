@@ -28,6 +28,7 @@ if OS.mac?
     cask "slack" # Team communication and collaboration software
     cask "spotify" # Music streaming service
     cask "visual-studio-code" # Open-source code editor
+    cask "iterm2" # Terminal emulator as alternative to Apple's Terminal app
 
     # Mac App Store apps
     mas "Keynote", id: 409183694 # Presentation software
