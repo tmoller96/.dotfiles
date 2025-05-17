@@ -2,6 +2,14 @@
 # setup-mac.sh: Bootstrap your macOS development environment using your dotfiles
 set -e
 
+# Ask for sudo password upfront
+echo "[+] Requesting sudo access..."
+sudo -v
+
+# Keep-alive: update existing `sudo` timestamp until script has finished
+# (runs in background, stops when script ends)
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
 DOTFILES_DIR="$HOME/.dotfiles"
 BREWFILE="$DOTFILES_DIR/Brewfile"
 
