@@ -1,10 +1,10 @@
 # .dotfiles
 
-This repository contains my personal dotfiles configuration.
+This repository contains my personal dotfiles configuration for both macOS and Windows environments.
 
 ## Overview
 
-These dotfiles are used to maintain consistent development environments across different machines. They include configuration files for various tools and applications.
+These dotfiles help maintain consistent development environments across different machines. They include configuration files and setup scripts for various tools and applications on macOS and Windows.
 
 ## Installation (macOS)
 
@@ -12,7 +12,7 @@ Run the setup script to automatically install Homebrew, all Brewfile dependencie
 
 ```zsh
 cd ~/.dotfiles
-zsh setup-mac.sh
+zsh mac/setup-mac.sh
 ```
 
 This will:
@@ -22,7 +22,7 @@ This will:
 - Install Oh My Zsh (if not already installed)
 - Install the zsh-bat plugin
 - Symlink `.zshrc`, `.gitconfig`, and `.p10k.zsh` to your home directory
-- Symlink your iTerm2 profile (`mac/iterm2-profile.json`) to the iTerm2 DynamicProfiles directory for live sync
+- Symlink your iTerm2 profile (`mac/com.googlecode.iterm2.plist`) to the iTerm2 DynamicProfiles directory for live sync
 
 After running the script:
 
@@ -53,14 +53,29 @@ If you prefer to install manually, follow these steps:
 5. Symlink iTerm2 profile:
    ```zsh
    mkdir -p "$HOME/Library/Application Support/iTerm2/DynamicProfiles"
-   ln -sf ~/.dotfiles/mac/iterm2-profile.json "$HOME/Library/Application Support/iTerm2/DynamicProfiles/iterm2-profile.json"
+   ln -sf ~/.dotfiles/mac/com.googlecode.iterm2.plist "$HOME/Library/Application Support/iTerm2/DynamicProfiles/com.googlecode.iterm2.plist"
    ```
+
+## Installation (Windows)
+
+- Run the setup script for Windows:
+  ```powershell
+  cd ~/.dotfiles/windows
+  ./setup-windows.sh
+  ```
+- (Planned) Add a winget bundle file to install dependencies automatically
+- Add and configure your terminal settings as needed
+
+## Folder Structure
+
+- `mac/` — macOS-specific configuration and setup scripts
+- `windows/` — Windows-specific configuration and setup scripts
 
 ## Todo for Mac
 
-- [x] Add iterm2 configuration (profile symlinked via setup script)
+- [x] Add iTerm2 configuration (profile symlinked via setup script)
 
 ## Todo for Windows
 
-- Add winget bundle file like homebrew to install the same dependencies
-- Add terminal configuration
+- [ ] Add winget bundle file like Homebrew to install the same dependencies
+- [ ] Add terminal configuration
