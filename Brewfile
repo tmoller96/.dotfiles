@@ -4,7 +4,7 @@ brew "diff-so-fancy" # Good-lookin' diffs with diff-highlight and more
 brew "fzf" # Command-line fuzzy finder written in Go
 brew "git" # Distributed revision control system
 brew "lazygit" # Git GUI with a terminal interface
-brew "nvm" # Manage multiple Node.js versions
+brew "mise" # Tool to manage multiple versions of development tools
 brew "powerlevel10k" # Theme for zsh
 brew "python" # Interpreted, interactive, object-oriented programming language
 brew "wget" # Internet file retriever
@@ -15,7 +15,6 @@ brew "zsh-you-should-use" # Set of warnings for the zsh shell
 # Mac-specific installations
 if OS.mac?
     brew "mas" # Mac App Store command-line interface
-    
     # Mac-specific casks
     cask "arc" # Web browser
     cask "chatgpt" # OpenAI's official ChatGPT desktop app
@@ -24,7 +23,6 @@ if OS.mac?
     cask "font-cascadia-code" # Monospaced font from Microsoft, great for coding
     cask "google-chrome" # Web browser
     cask "logi-options+" # Software for Logitech devices
-    cask "messenger" # Native desktop app for Messenger (formerly Facebook Messenger)
     cask "notion" # App to write, plan, collaborate, and get organized
     cask "slack" # Team communication and collaboration software
     cask "spotify" # Music streaming service

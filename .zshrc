@@ -77,7 +77,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(aliases git sudo web-search copyfile zsh-bat nvm npm flutter fzf)
+plugins=(aliases git sudo web-search copyfile zsh-bat npm flutter fzf)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -116,10 +116,7 @@ gbsel() {
 export PATH="$(brew --prefix)/bin:$PATH"
 export PATH="$(brew --prefix)/opt/python/libexec/bin:$PATH"
 
-# Check if Flutter directory exists before adding to PATH
-if [ -d "$HOME/development/flutter/bin" ]; then
-    export PATH="$PATH:$HOME/development/flutter/bin"
-fi
+eval "$(mise activate zsh)"
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -129,3 +126,13 @@ source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
 source $(brew --prefix)/share/zsh-you-should-use/you-should-use.plugin.zsh
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Check if Flutter directory exists before adding to PATH
+if [ -d "$HOME/development/flutter/bin" ]; then
+    export PATH="$PATH:$HOME/development/flutter/bin"
+fi
+
+# Load Angular CLI autocompletion.
+if command -v ng >/dev/null 2>&1; then
+    source <(ng completion script)
+fi
