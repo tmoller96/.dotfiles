@@ -21,7 +21,8 @@ This will:
 - Install all apps and packages from the Brewfile
 - Install Oh My Zsh (if not already installed)
 - Install the zsh-bat plugin
-- Symlink `.zshrc`, `.gitconfig`, and `.p10k.zsh` to your home directory
+- Symlink `.zshrc`, `.gitconfig`, `.p10k.zsh` and `.mise.toml` to your home directory
+- Install mise tools
 - Symlink your iTerm2 profile (`mac/com.googlecode.iterm2.plist`) to the iTerm2 DynamicProfiles directory for live sync
 
 After running the script:

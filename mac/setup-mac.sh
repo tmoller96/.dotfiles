@@ -42,7 +42,7 @@ else
 fi
 
 # 4. Symlink dotfiles
-for file in .zshrc .gitconfig .p10k.zsh; do
+for file in .zshrc .gitconfig .p10k.zsh .mise.toml; do
   src="$DOTFILES_DIR/$file"
   dest="$HOME/$file"
   if [ -e "$src" ]; then
@@ -51,7 +51,11 @@ for file in .zshrc .gitconfig .p10k.zsh; do
   fi
 done
 
-# 5. Configure iTerm2 to load preferences from dotfiles
+# 5. Install mise tools
+echo "[+] Installing mise tools..."
+mise install
+
+# 6. Configure iTerm2 to load preferences from dotfiles
 ITERM_PREFS_DIR="$DOTFILES_DIR/mac"
 echo "[+] Configuring iTerm2 to load preferences from $ITERM_PREFS_DIR ..."
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$ITERM_PREFS_DIR"
@@ -60,7 +64,7 @@ echo "[+] iTerm2 is now set to load preferences from $ITERM_PREFS_DIR. Please re
 
 echo "[+] Setup complete! Please restart your terminal."
 
-# 6. Open iTerm2 and close the current terminal
+# 7. Open iTerm2 and close the current terminal
 if command -v open &>/dev/null; then
   echo "[+] Opening iTerm2..."
   open -a iTerm
