@@ -15,7 +15,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -30,14 +30,13 @@ export ZSH="$HOME/.oh-my-zsh"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# zstyle ':omz:update' frequency 13
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -52,8 +51,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# Caution: this setting can cause issues with multiline prompts (zsh 5.7.1 and newer seem to work)
-# See https://github.com/ohmyzsh/ohmyzsh/issues/5765
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 # COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
@@ -77,13 +77,15 @@ export ZSH="$HOME/.oh-my-zsh"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(aliases git sudo web-search copyfile zsh-bat npm flutter fzf)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search sudo copyfile you-should-use zsh-bat mise npm aliases)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+
+export PATH="$HOME/.local/bin:$PATH"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -106,33 +108,94 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 alias zshconfig="code ~/.zshrc"
 alias zshreload="source ~/.zshrc"
-alias als="acs"
+alias explorer="explorer.exe"
+alias cdfe="cd ~/dev/atoz/frontend"
+alias cdbe="cd ~/dev/atoz/backend"
+alias atoz="cd ~/dev/atoz && lazygit"
+alias swt="setup_worktree"
+alias rwt="remove_worktree"
+alias db="code -n --profile SQL"
 
+
+# # Strip Windows paths from WSL PATH
+# # Keep only allowed Windows paths
+# export PATH="$(echo "$PATH" | tr ':' '\n' | grep -vE '^/mnt/c/(?!Windows/System32/OpenSSH/|Users/thmo.itm/AppData/Local/Programs/Microsoft VS Code/bin)' | paste -sd: -)"
+# export PATH="$PATH:/mnt/c/Users/$(cmd.exe /c 'echo %USERNAME%' | tr -d '\r')/AppData/Local/Programs/Microsoft VS Code/bin"
+
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval "$(mise activate zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# git branch select functionality
 gbsel() {
     local branch
     branch=$(git branch --all | grep -v HEAD | sed 's/^..//' | fzf) && git checkout "$(echo "$branch" | sed 's#remotes/origin/##')"
 }
 
-export PATH="$(brew --prefix)/bin:$PATH"
-export PATH="$(brew --prefix)/opt/python/libexec/bin:$PATH"
+# setup worktree functionality
+setup_worktree() {
+  if [ -z "$1" ]; then
+    echo "Usage: setup_worktree <branch-name>"
+    return 1
+  fi
 
-eval "$(mise activate zsh)"
+  local branch="$1"
+  local worktree_dir="/home/thomasmoeller/dev/atoz-$branch"
+  local frontend_dir="$worktree_dir/frontend"
 
+  if [ -d "$worktree_dir" ]; then
+    echo "Error: Worktree directory '$worktree_dir' already exists."
+    return 1
+  fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  echo "Fetching latest changes from origin..."
+  git fetch origin
 
-source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
-source $(brew --prefix)/share/zsh-you-should-use/you-should-use.plugin.zsh
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  echo "Creating git worktree at $worktree_dir from $branch..."
+  git worktree add "$worktree_dir" "$branch" || return 1
 
-# Check if Flutter directory exists before adding to PATH
-if [ -d "$HOME/development/flutter/bin" ]; then
-    export PATH="$PATH:$HOME/development/flutter/bin"
-fi
+  echo "Setting up worktree environment..."
+  cd "$worktree_dir" || return
+  mise trust
+  mise run install
+
+  cd "$frontend_dir" || return
+
+  echo "Opening in VS Code..."
+  code --profile Angular .
+}
+
+remove_worktree() {
+  if [ -z "$1" ]; then
+    echo "Usage: remove_worktree <branch-name>"
+    return 1
+  fi
+
+  local branch="$1"
+  local worktree_dir="/home/thomasmoeller/dev/atoz-$branch"
+
+  if [ ! -d "$worktree_dir" ]; then
+    echo "Error: Worktree directory '$worktree_dir' does not exist."
+    return 1
+  fi
+
+  echo "Removing git worktree at $worktree_dir..."
+  sudo git worktree remove "$worktree_dir" --force || return 1
+
+  echo "Pruning worktrees..."
+  git worktree prune
+
+  echo "Worktree for branch '$branch' has been removed."
+}
+
 
 # Load Angular CLI autocompletion.
 if command -v ng >/dev/null 2>&1; then
     source <(ng completion script)
 fi
+
+export PATH="$PATH:/opt/mssql-tools18/bin"
+
